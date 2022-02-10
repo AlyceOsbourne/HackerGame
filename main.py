@@ -1,5 +1,6 @@
 from tkinter import *
 from rich import print
+import builtins_restricted
 
 
 def logger_decorator(func):
@@ -13,7 +14,7 @@ def logger_decorator(func):
     return out
 
 
-__game__globals__ = dict(__name__="Shell")
+__game__globals__ = dict(__name__="Shell", __builtins__=builtins_restricted)
 
 
 class Shell:
@@ -52,6 +53,7 @@ class Shell:
         self.__globals__ = dict(**__game__globals__, **level) if level else __game__globals__
         self.window = Tk()
         self.window.title("TB-RPG")
+        self.window.configure()
         self.output_frame, self.input_frame = Frame(self.window), Frame(self.window)
         self.output_text = Text(self.output_frame, state=DISABLED, height=30, width=100, bg="black", fg="green")
         self.output_scroll = Scrollbar(self.output_frame, orient=VERTICAL, bg='black')
