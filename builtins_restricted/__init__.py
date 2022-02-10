@@ -1,8 +1,5 @@
 from builtins import *
-
-exclude = ["compile", "eval", "exec", "open", "input"]
-
-for i in exclude:
+for i in  ["compile", "eval", "exec", "open", "input"]:
     del globals()[i]
-
 __all__ = [*globals().keys()]
+
