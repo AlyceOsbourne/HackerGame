@@ -7,7 +7,7 @@ from reimplimented import *
 intro_text = "### Welcome to the Average System Shell ###\nTo help fry your brain without frying your " \
              "computer\ncontrol enter to post code (yes this is temporary)\n\n "
 
-__naughty_words__ = ["__builtins__", "<CLASSNAME>", "<FUNCTIONNAME>", "func_globals", "<TYPE>", "<SUBTYPE>"]
+__naughty_words__ = ["__builtins__", "__import__", "<CLASSNAME>", "<FUNCTIONNAME>", "<TYPE>", "<SUBTYPE>", "func_globals"]
 
 @dataclass
 class Level:
