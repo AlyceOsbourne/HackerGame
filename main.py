@@ -15,7 +15,7 @@ __naughty_words__ = ["__builtins__", "__import__", "<CLASSNAME>", "<FUNCTIONNAME
 class Level:
     name: str
     description: str
-    level_filesystem: FileSystem
+    level_filesystem: None
     level_globals: dict = field(default_factory=dict)
 
 
