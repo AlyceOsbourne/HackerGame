@@ -9,7 +9,7 @@ from reimplimented import *
 intro_text = "### Welcome to the Average System Shell ###\nTo help fry your brain without frying your " \
              "computer\ncontrol enter to post code (yes this is temporary)\n\n "
 
-__naughty_words__ = ["__builtins__", "__import__", "<CLASSNAME>", "<FUNCTIONNAME>", "<TYPE>", "<SUBTYPE>", "func_globals"]
+__naughty_words__ = ["__class__.__base__.__subclasses__", "<CLASSNAME>", "<FUNCTIONNAME>", "<TYPE>", "<SUBTYPE>", "func_globals"]
 
 @dataclass
 class Level:
@@ -52,7 +52,7 @@ replit == https://replit.com/@AlyceOsbourne/HackerGame?v=1"""
         for w in __naughty_words__:
             if w in string:
                 self.output_text.config(state=NORMAL)
-                self.output_text.insert(END, "Don't be naughty! (┛ಠ_ಠ)┛彡┻━┻")
+                self.output_text.insert(END, "Don't be naughty! (┛ಠ_ಠ)┛彡┻━┻"+"\n")
                 self.output_text.config(state=DISABLED)
                 return
         try:
