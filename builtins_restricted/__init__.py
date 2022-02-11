@@ -22,7 +22,7 @@ def __import_module__(name, globals=None, locals=None, fromlist=(), level=0):
         except ModuleNotFoundError as m:
             print(m.name, m.msg)
     else:
-        raise ModuleNotFoundError
+        raise ModuleNotFoundError(name)
 
 
 def __build_class__restricted__(*args, **kwargs):
