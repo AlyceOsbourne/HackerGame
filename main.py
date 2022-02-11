@@ -1,9 +1,19 @@
 # todo -> get __build_class__ working
-import tkinter.font
-from tkinter import *
+from dataclasses import dataclass
+from tkinter import DISABLED, Frame, VERTICAL, LEFT, Tk, Y, RIGHT, END, Text, NORMAL, font, Scrollbar
 import builtins_restricted
+from reimplimented import *
 
-intro_text = "### Welcome to the Average System Shell ###\nTo help fry your brain without frying your computer\ncontrol enter to post code (yes this is temporary)\n\n"
+intro_text = "### Welcome to the Average System Shell ###\nTo help fry your brain without frying your " \
+             "computer\ncontrol enter to post code (yes this is temporary)\n\n "
+__naughty_words__ = ["__builtins__", "<CLASSNAME>", "func_globals"]
+
+@dataclass
+class Level:
+    name: str
+    description: str
+    level_globals: dict[str: ...]
+    level_filesystem: FileSystem
 
 
 def logger_decorator(func):
@@ -18,6 +28,9 @@ def logger_decorator(func):
 
 
 class Shell:
+    __developer__ = """Alyce Osbourne,
+github == https://github.com/AlyceOsbourne,
+replit == https://replit.com/@AlyceOsbourne/HackerGame?v=1"""
 
     def update(self, *_):
         self.execute_input(self.grab_input())
@@ -44,6 +57,7 @@ class Shell:
                 self.print_to_output(string + " -> " + f"{error.__class__.__name__}: {error}")
             except Exception as error:
                 self.print_to_output(string + " -> " + f"{repr(error)}")
+                raise
         finally:
             print("\n")
 
@@ -64,7 +78,7 @@ class Shell:
     window.title("Shell")
     window.resizable(False, False)
     window.configure()
-    font = tkinter.font.Font()
+    font = font.Font()
     output_frame, input_frame = Frame(window), Frame(window)
     output_text = Text(output_frame, height=15, width=70, bg="black", fg="green")
     output_scroll = Scrollbar(output_frame, orient=VERTICAL, bg='black', command=output_text.yview)
@@ -78,12 +92,13 @@ class Shell:
     input_text.pack(side=LEFT)
     input_scroll.pack(fill=Y, side=RIGHT)
 
-    __game__globals__ = dict(__name__="Shell", __builtins__=builtins_restricted)
+    __game__globals__ = dict(__name__="Shell", __builtins__=builtins_restricted, __developer__=__developer__)
 
-    def __init__(self, level=None):
-        self.__globals__ = dict(**self.__game__globals__, **level, ) if level else self.__game__globals__
+    def __init__(self, level: Level = None):
+        self.level_name = f"Mission {level.name}" if level else ""
+        self.__globals__ = dict(**self.__game__globals__, **level.level_globals, ) if level else self.__game__globals__
         builtins_restricted.session = self
-        self.output_text.insert(END,intro_text)
+        self.output_text.insert(END, intro_text)
         self.output_text.config(state=DISABLED)
         self.input_text.bind('<Control-Return>', self.update)
         self.window.mainloop()
