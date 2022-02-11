@@ -42,10 +42,8 @@ class Shell:
                 self.print_to_output(string)
             except ModuleNotFoundError as error:
                 self.print_to_output(string + " -> " + f"{error.__class__.__name__}: {error}")
-                raise
             except Exception as error:
                 self.print_to_output(string + " -> " + f"{repr(error)}")
-                raise
         finally:
             print("\n")
 

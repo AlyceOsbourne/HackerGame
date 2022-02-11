@@ -14,11 +14,11 @@ from builtins import *
 allowed_modules = ["itertools", "math", "collections"]
 
 
-def __import_module__(name, globals=None, locals=None, fromlist=(), level=0):
+def __import_module__(name, _globals=None, _locals=None, fromlist=(), level=0):
     print("Attempting import", name)
     if name in allowed_modules:
         try:
-            return importlib.__import__(name, globals, locals, fromlist, level)
+            return importlib.__import__(name, _globals, _locals, fromlist, level)
         except ModuleNotFoundError as m:
             print(m.name, m.msg)
     else:
