@@ -3,7 +3,6 @@
 from tkinter import *
 
 import builtins_restricted
-from rich import print
 
 intro_text = "### Welcome to the Average System Shell ###\n\rTo help fry your brain without frying your computer\n\r"
 
