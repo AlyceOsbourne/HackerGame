@@ -4,7 +4,7 @@ from tkinter import *
 
 import builtins_restricted
 
-intro_text = "### Welcome to the Average System Shell ###\n\rTo help fry your brain without frying your computer\n\r"
+intro_text = "### Welcome to the Average System Shell ###\n\rTo help fry your brain without frying your computer\n\rcontrol enter to post code (yes this is temporary)"
 
 
 def logger_decorator(func):

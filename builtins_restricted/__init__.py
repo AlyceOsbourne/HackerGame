@@ -1,3 +1,4 @@
+import builtins
 import importlib
 
 # import os  # needs new implement
@@ -9,7 +10,6 @@ import importlib
 # import more_itertools
 
 from builtins import *
-from builtins import __build_class__
 
 allowed_modules = ["itertools", "math", "collections"]
 
@@ -25,10 +25,10 @@ def __import_module__(name, globals=None, locals=None, fromlist=(), level=0):
         raise ModuleNotFoundError
 
 
-def __build_class__restricted__():
+def __build_class__restricted__(*args, **kwargs):
     # todo class checks here, classes must not include outer access,
     #  an in some instances, if does replace with custom function
-    return __build_class__
+    return builtins.__build_class__(*args, **kwargs)
 
 
 for i in ["compile", "eval", "exec", "open", "input", "print"]:  # these deleted methods need recreation
