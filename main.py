@@ -23,12 +23,16 @@ class Shell:
         self.execute_input(self.grab_input())
 
     def grab_input(self) -> str:
-        text = self.input_text.get(1.0, END).replace("'", "\'").strip(" ")
+        text = self.input_text.get(1.0, END).rstrip("\\").rstrip().replace("'", "\'").replace('"', '\"')
+        if text.endswith("\\"):
+            text = text[:-1]
         text.replace("print_to_output(", "self.print_to_output(")
         self.input_text.delete(1.0, END)
         return text
 
     def execute_input(self, string: str):
+        if not string:
+            return
         try:
             eval_res = eval(compile(string, "<stdin>", "eval"), self.__globals__)
             self.print_to_output(f"{string} = {eval_res}")
@@ -70,7 +74,7 @@ class Shell:
     input_text.pack(side=LEFT)
     input_scroll.pack(fill=Y, side=RIGHT)
 
-    __game__globals__ = dict(__name__="Shell", __builtins__=builtins_restricted, print=print_to_output)
+    __game__globals__ = dict(__name__="Shell", __builtins__=builtins_restricted)
 
     def __init__(self, level=None):
         self.__globals__ = dict(**self.__game__globals__, **level, ) if level else self.__game__globals__
