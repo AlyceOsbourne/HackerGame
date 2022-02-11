@@ -3,7 +3,7 @@
 from tkinter import *
 import builtins_restricted
 
-intro_text = "### Welcome to the Average System Shell ###\n\rTo help fry your brain without frying your computer\n\rcontrol enter to post code (yes this is temporary)"
+intro_text = "### Welcome to the Average System Shell ###\nTo help fry your brain without frying your computer\ncontrol enter to post code (yes this is temporary)"
 
 
 def logger_decorator(func):
@@ -11,7 +11,7 @@ def logger_decorator(func):
         print(f"Entering Function: {func.__name__}, with args ({args}) and kwargs({kwargs})")
         ret = func(*args, **kwargs)
         if ret:
-            print(f"-> Function: {func.__name__} yielded: {ret}", "\n\r")
+            print(f"-> Function: {func.__name__} yielded: {ret}", "\n")
         return ret
 
     return out
@@ -23,26 +23,26 @@ class Shell:
         self.execute_input(self.grab_input())
 
     def grab_input(self) -> str:
-        text = self.input_text.get(1.0, END).replace("'", '"').replace('"', '\"').strip(" ")
+        text = self.input_text.get(1.0, END).replace("'", "\'").strip(" ")
         text.replace("print_to_output(", "self.print_to_output(")
         self.input_text.delete(1.0, END)
         return text
 
     def execute_input(self, string: str):
         try:
-            eval_res = eval(string, self.__globals__)
+            eval_res = eval(compile(string, "<stdin>", "eval"), self.__globals__)
             self.print_to_output(f"{string} = {eval_res}")
         except Exception:
             try:
-                exec(string, self.__globals__)
+                exec(compile(string, "<stdin>", "exec"), self.__globals__)
                 self.print_to_output(string)
             except Exception as error:
                 self.print_to_output(string + "\n\t" + f"{error.__class__.__name__}: {error}")
                 raise
         finally:
-            print("\n\r")
+            print("\n")
 
-    def print_to_output(self, *string, sep="\n\r"):
+    def print_to_output(self, *string, sep="\n"):
         self.output_text.config(state=NORMAL)
         for s in string:
             self.output_text.insert(END, s + sep)
@@ -59,10 +59,10 @@ class Shell:
     window.configure()
     output_frame, input_frame = Frame(window), Frame(window)
     output_text = Text(output_frame, state=DISABLED, height=15, width=70, bg="black", fg="green")
-    output_scroll = Scrollbar(output_frame, orient=VERTICAL, bg='black', command=output_text.yview())
+    output_scroll = Scrollbar(output_frame, orient=VERTICAL, bg='black', command=output_text.yview)
     input_text = Text(input_frame, height=5, width=70, insertwidth=3, bg="black", fg="green",
                       insertbackground="green")
-    input_scroll = Scrollbar(input_frame, orient=VERTICAL, bg='black', command=input_text.yview())
+    input_scroll = Scrollbar(input_frame, orient=VERTICAL, bg='black', command=input_text.yview)
     output_frame.pack(pady=3, padx=3)
     output_text.pack(side=LEFT)
     output_scroll.pack(fill=Y, side=RIGHT)
