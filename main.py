@@ -60,9 +60,9 @@ class Shell:
     window.resizable(False, False)
     window.configure()
     output_frame, input_frame = Frame(window), Frame(window)
-    output_text = Text(output_frame, state=DISABLED, height=30, width=100, bg="black", fg="green")
+    output_text = Text(output_frame, state=DISABLED, height=15, width=70, bg="black", fg="green")
     output_scroll = Scrollbar(output_frame, orient=VERTICAL, bg='black', command=output_text.yview())
-    input_text = Text(input_frame, height=10, width=100, insertwidth=3, bg="black", fg="green",
+    input_text = Text(input_frame, height=5, width=70, insertwidth=3, bg="black", fg="green",
                       insertbackground="green")
     input_scroll = Scrollbar(input_frame, orient=VERTICAL, bg='black', command=input_text.yview())
     output_frame.pack(pady=3, padx=3)
