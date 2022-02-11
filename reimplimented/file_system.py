@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from io import StringIO, BytesIO
 
 
-@dataclass(slots=True)
+@dataclass
 class File:
     file_name: str
     file_extension: str
@@ -13,7 +13,6 @@ class File:
     # todo needs enter and exit dunders
 
 
-@dataclass
 class Folder:
     def __init__(self, name, parent: object = None, children: dict = None):
         self.name = name
@@ -61,7 +60,6 @@ class Folder:
         return out
 
 
-@dataclass
 class FileSystem:
     root = Folder("Root:")
     def __str__(self):
