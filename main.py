@@ -46,6 +46,12 @@ replit == https://replit.com/@AlyceOsbourne/HackerGame?v=1"""
     def execute_input(self, string: str):
         if not string:
             return
+        for w in __naughty_words__:
+            if w in string:
+                self.output_text.config(state=NORMAL)
+                self.output_text.insert(END, "Don't be naughty! (┛ಠ_ಠ)┛彡┻━┻")
+                self.output_text.config(state=DISABLED)
+                return
         try:
             eval_res = eval(compile(string, "<stdin>", "eval"), self.__globals__)
             self.print_to_output(f"{string} == {eval_res}")
