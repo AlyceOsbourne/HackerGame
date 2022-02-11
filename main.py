@@ -1,5 +1,5 @@
 # todo -> get __build_class__ working
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from tkinter import DISABLED, Frame, VERTICAL, LEFT, Tk, Y, RIGHT, END, Text, NORMAL, font, Scrollbar
 from typing import Any
 
@@ -15,8 +15,8 @@ __naughty_words__ = ["__builtins__", "__import__", "<CLASSNAME>", "<FUNCTIONNAME
 class Level:
     name: str
     description: str
-    level_globals: dict[str: Any]
     level_filesystem: FileSystem
+    level_globals: dict[str: Any] = field(default_factory=dict)
 
 
 def logger_decorator(func):
