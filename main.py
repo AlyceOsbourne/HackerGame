@@ -16,7 +16,7 @@ class Level:
     name: str
     description: str
     level_filesystem: FileSystem
-    level_globals: dict[str: Any] = field(default_factory=dict)
+    level_globals: dict = field(default_factory=dict)
 
 
 def logger_decorator(func):
@@ -106,7 +106,6 @@ replit == https://replit.com/@AlyceOsbourne/HackerGame?v=1"""
     def __init__(self, level: Level = None):
         self.level_name = f"Mission {level.name}" if level else ""
         self.__globals__ = dict(**self.__game__globals__, **level.level_globals, ) if level else self.__game__globals__
-        builtins_restricted.session = self
         self.output_text.insert(END, intro_text)
         self.output_text.config(state=DISABLED)
         self.input_text.bind('<Control-Return>', self.update)
